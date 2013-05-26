@@ -8,15 +8,15 @@ module.exports = {
   recipe:function(req, res) {
     var mealModel = mongoose.model('Meal', meal)
 
-    var newMeal = new mealModel({
-      ingredients:['pasta', 'olio']
+    mealModel.count(function(err, count) {
+       var random = Math.random() * count;
+       mealModel.find().limit(-1).skip(random).exec(function(err, data) {
+       res.send(data)  	    
+    })
+		    
+		    
     })
 
-    var random = Math.random() * 1
-
-    mealModel.find().limit(-1).skip(random).exec(function(err, data) {
-      res.send(data)  	    
-    })
 
   },
   login:function(req, res) {
@@ -24,21 +24,36 @@ module.exports = {
 	var password = req.body.user.password
 
 	user.find({ username:username, password:password}, function(err, docs) {
-	 console.log(docs)
 	 if (docs.length > 0) {
 	   req.session.username = username
-	   res.send('authenticated')
+	   res.send(username)
 	 }
 
 	})
   },
   auth:function(req, res) {
  	if (req.session.username) {
-	  res.send('authenticated')
+	  res.send(req.session.username)
       	}else{
-	  res.send('not_authenticated')
+	  res.send(401)
 	}
 
+  },
+  clearsession:function(req, res) {
+	req.session = null
+	res.send('done')
+  },
+  add_recipe:function(req, res) {
+	var mealModel = mongoose.model('Meal', meal)
+		     
+	console.log(req.body)
+	var newMeal = new mealModel({
+	 ingredients:req.body.ingredients
+	})
+
+	newMeal.save()
+	res.send('done')
+	
   }
 
 }

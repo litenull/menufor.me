@@ -29,18 +29,18 @@ app.configure("development", function() {
 
 var checkAuth = function(req, res, next) {
 	if (!req.session.username) {
-	  res.redirect('/');
-	  console.log('ERROR')
+	  res.send('not authenticated')
+	}else{
+	  next()
 	}
-
-	console.log(req.session.username)
-   	next()
 }
 
 
 // RESTful API
-app.get('/api/recipe', checkAuth, routes.recipe);
+app.get('/api/recipe', routes.recipe);
 app.post('/login',     routes.login)
 app.get('/checkauth',  routes.auth)
+app.get('/clearsession', routes.clearsession)
+app.post('/api/recipe', checkAuth, routes.add_recipe)
 
 http.createServer(app).listen(app.get('port'));
