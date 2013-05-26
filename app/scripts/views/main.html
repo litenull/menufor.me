@@ -1,0 +1,19 @@
+<div ng-controller="mainCtrl">
+welcome to menufor.me<br />
+pick a food to eat :)<br />
+<button ng-click="get_lunch()">Pick lunch</button>
+<button ng-click="get_weekly()" >Pick weekly menu</button><br />
+Your lunch for today is<br>
+<div ng-repeat="ingredient in recipe" style="float:left"><div style="float:left">{{ingredient}}</div> <div ng-show="!$last" style="float:left">, &nbsp;</div> </div>
+
+<br>
+
+<div ng-show="!authenticated">
+<div class="login">
+Username: <input type="text" id="username" />
+Password: <input type="text" id="password" />
+<button type="submit" ng-click="login()">Login</button>
+</div>
+</div>
+
+</div>
