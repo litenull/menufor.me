@@ -17,16 +17,20 @@ app.controller('mainCtrl', function mainCtrl($scope, $http) {
 
 	$http.post('/login', data)
 	.success(function(data, status, headers, config) {
-	  $scope.authenticated = true
-	  $scope.username = data
+	  if (data != 'NOT FOUND') {
+	   $scope.authenticated = true
+	   $scope.username = data
+	  }
 	})
    }
 
    $http.get('/checkauth')
    .success(function(data, status, headers, config) {
 	if (data.length > 0) {
-	  $scope.authenticated = true
-	  $scope.username = data
+	  if (data != 'NOT FOUND') {
+	   $scope.authenticated = true
+	   $scope.username = data
+	  }
 	}
    })
 
@@ -63,5 +67,7 @@ app.controller('mainCtrl', function mainCtrl($scope, $http) {
 	  $scope.authenticated = false;
 	})
    }
+
+   $('.login-form').fadeIn(1000)
 
 })

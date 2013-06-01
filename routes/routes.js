@@ -27,6 +27,8 @@ module.exports = {
 	 if (docs.length > 0) {
 	   req.session.username = username
 	   res.send(username)
+	 }else{
+	   res.send('NOT FOUND')
 	 }
 
 	})

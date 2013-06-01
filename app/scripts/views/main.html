@@ -1,27 +1,36 @@
 <div ng-controller="mainCtrl">
-<div class="heading">welcome to menufor.me</div>
-pick a food to eat :)<br />
-<div class="user"><div ng-show="authenticated==true">welcome, {{username}}!</div></div>
-<button ng-click="get_lunch()">Pick lunch</button>
-<button ng-click="get_weekly()" >Pick weekly menu</button><br />
-Your lunch for today is<br>
-<div ng-repeat="ingredient in recipe" style="float:left"><div style="float:left">{{ingredient}}</div> <div ng-show="!$last" style="float:left">, &nbsp;</div> </div>
+
+<div ng-show="authenticated==true">
+ <div class="wrapper-main">
+  <h2>pick food to eat :)</h2>
+  <div class="user"><h2>welcome, {{username}}!</h2></div>
+    <a href="#" class="btn btn-large btn-block btn-primary" ng-click="get_lunch()">Pick lunch</a>
+    <a href="#" class="btn btn-large btn-block btn-primary" ng-click="get_weekly()">Pick weekly menu</a>
+    <a href="#" class="btn btn-large btn-block btn-primary" ng-click="show_add_window()">Add your recipe</a>
+    <a href="#" class="btn btn-large btn-block btn-primary" ng-click="logout()">Logout</a>
+  <div ng-show="recipe!=null">Your lunch for today is</div><br>
+  <div ng-repeat="ingredient in recipe" style="float:left">
+   <div style="float:left">{{ingredient}}</div> <div ng-show="!$last" style="float:left">, &nbsp;</div>
+  </div>
+</div>
+</div>
 
 <br>
 <div ng-show="authenticated!=true">
-<div class="login">
-Username: <input type="text" id="username" />
-Password: <input type="text" id="password" />
-<button type="submit" ng-click="login()">Login</button>
+<div class="container-main">
+ <div class="login-icon"><img src="images/icon.png"></div>
+ <div class="login-form" style="width:320px; margin:0 auto; display:none">
+  <div class="control-group">
+   <input type="text" id="username" class="login-field" />
+   <label class="login-field-icon fui-user" for="username"></label>
+  </div>
+  <div class="control-group">
+   <input type="text" id="password" class="login-field" />
+   <label class="login-field-icon fui-lock" for="password"></label>
+  </div>
+<a href="#" class="btn btn-large btn-block btn-primary" ng-click="login()">Login</a>
 </div>
 </div>
-
-<div ng-show="authenticated==true" id="add_window">
-<button ng-click="show_add_window()">Add your recipe</button>
-</div>
-
-<div ng-show="authenticated==true">
-<button ng-click="logout()">Logout</button>
 </div>
 
 <div id="add" style="display:none">
